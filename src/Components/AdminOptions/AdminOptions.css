@@ -1,0 +1,44 @@
+.admin-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+  }
+  
+  .admin-button {
+    padding: 20px 40px;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 200px; /* Button width for consistency */
+  }
+  
+  .admin-button:hover {
+    transform: scale(1.05); /* Slightly enlarge on hover */
+  }
+  
+  .admin-button:nth-child(1) {
+    background-color: #4CAF50; /* Green for Create */
+    color: white;
+  }
+  
+  .admin-button:nth-child(2) {
+    background-color: #2196F3; /* Blue for Read */
+    color: white;
+  }
+  
+  .admin-button:nth-child(3) {
+    background-color: #FF9800; /* Orange for Update */
+    color: white;
+  }
+  
+  .admin-button:nth-child(4) {
+    background-color: #f44336; /* Red for Delete */
+    color: white;
+  }
+  
