@@ -6,10 +6,10 @@
   flex-direction: column;
   padding: 40px 20px;
   max-width: 900px;
-  margin: 0 auto;
-  background-color: #FCEFE8; /* Light background for consistency with previous page */
+  background-color: white; /* Light background for consistency with previous page */
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  margin: auto;
 }
 
 /* Title styling */
@@ -19,6 +19,7 @@
   color: #333;
   margin-bottom: 30px;
   text-align: center;
+
 }
 
 /* Form container */
@@ -33,6 +34,7 @@
   margin-bottom: 20px;
   display: flex;
   flex-direction: column;
+  width: 80%;
 }
 
 /* Label styling */

@@ -25,9 +25,6 @@ const Step2 = () => {
                     <li>1) Your AI stylist is here to guide your everyday look.</li>
                     <li>2) Discover wardrobe essentials that align with your unique style.</li>
                 </ul>
-                <button className="join-now-button" onClick={handleButtonClick}>
-                    Learn More →
-                </button>
             </div>
         </div>
     );

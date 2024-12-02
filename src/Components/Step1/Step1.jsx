@@ -17,9 +17,6 @@ const StepOne = () => {
         <p>
           Snap a photo or upload an image of your outfit to our platform. Our cutting-edge technology will analyze the colors and patterns to provide expert suggestions for complementary combinations and style enhancements.
         </p>
-        <button className="join-now-button" onClick={handleButtonClick}>
-          Get Started →
-        </button>
       </div>
       <div className="step-image">
         <img src={stepImage} alt="Style DNA Step One" />

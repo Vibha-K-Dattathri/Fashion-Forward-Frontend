@@ -13,7 +13,7 @@ const Hero = () => {
           Curious about which colors suit your outfit best? Unsure how to style your clothing for a polished look? Looking for the perfect additions to refresh your wardrobe? Need expert suggestions for trendy purchases?
           Just ask your AI Stylist for tailored recommendations!
         </p>
-        <Link to="/style-your-outfit" className="hero-button">
+        <Link to="/login-signup" className="hero-button">
           Style Now
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="12" viewBox="0 0 16 12" fill="none">
             <path

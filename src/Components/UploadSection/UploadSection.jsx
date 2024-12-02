@@ -1,11 +1,16 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef,forwardRef  } from 'react';
 import './UploadSection.css';
+import { useNavigate } from 'react-router-dom';
+import { ClipLoader } from 'react-spinners';
 
-const UploadSection = () => {
+
+const UploadSection = forwardRef((props, ref) => {
+  const navigate = useNavigate();
   const [gender, setGender] = useState('');
   const [categories, setCategories] = useState([]);
   const [image, setImage] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
+  const [loading, setLoading] = useState(false); // Loading state
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
   const [isCameraOpen, setIsCameraOpen] = useState(false);
@@ -33,7 +38,6 @@ const UploadSection = () => {
     canvas.height = video.videoHeight;
     context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-    // Convert canvas image to file
     canvas.toBlob(
       (blob) => {
         const file = new File([blob], 'photo.jpg', { type: 'image/jpeg' });
@@ -70,17 +74,54 @@ const UploadSection = () => {
     );
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     if (!gender || categories.length === 0 || !image) {
       setErrorMessage('Please fill in all fields and upload/capture a valid image.');
     } else {
-      alert(`Form submitted successfully! Gender: ${gender}, Categories: ${categories.join(', ')}`);
+      setLoading(true); // Show the spinner
+      const formData = new FormData();
+      formData.append('gender', gender);
+      formData.append('collection', categories.join(','));
+      formData.append('file', image);
+
+      const token = localStorage.getItem('access_token');
+      console.log(loading)
+
+
+      try {
+        const response = await fetch('http://127.0.0.1:8000/get_recommended_products/', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+          body: formData,
+        });
+
+
+        if (response.ok) {
+          const data = await response.json();
+          console.log('Recommended products:', data);
+          console.log(loading)
+
+          setLoading(false); // Hide spinner after success
+          navigate('/display', { state: { abc: data.products } });
+        } else {
+          const errorData = await response.json();
+          console.error('Error fetching recommended products:', errorData);
+          setErrorMessage('Failed to fetch recommended products.');
+          setLoading(false); // Hide spinner on error
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        setErrorMessage('An error occurred while fetching recommended products.');
+        setLoading(false); // Hide spinner on error
+      }
     }
   };
 
   return (
-    <div className="upload-page">
+    <div ref={ref} className="upload-page">
       <h2>Upload Your Image</h2>
       <form onSubmit={handleSubmit}>
         <div className="dropdowns">
@@ -91,8 +132,8 @@ const UploadSection = () => {
             className="dropdown"
           >
             <option value="" disabled>Select Gender</option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
+            <option value="men">Men</option>
+            <option value="women">Women</option>
           </select>
         </div>
 
@@ -101,34 +142,26 @@ const UploadSection = () => {
           <label>
             <input
               type="checkbox"
-              value="tops"
+              value="shirt"
               onChange={handleCategoryChange}
             />
-            Tops
+            Shirt
           </label>
           <label>
             <input
               type="checkbox"
-              value="pants"
+              value="pant"
               onChange={handleCategoryChange}
             />
-            Pants
+            Pant
           </label>
           <label>
             <input
               type="checkbox"
-              value="dresses"
+              value="Kurta"
               onChange={handleCategoryChange}
             />
-            Dresses
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              value="jackets"
-              onChange={handleCategoryChange}
-            />
-            Jackets
+            Kurta
           </label>
         </div>
 
@@ -156,11 +189,13 @@ const UploadSection = () => {
         )}
 
         {errorMessage && <p className="error">{errorMessage}</p>}
-        <button type="submit" className="submit-btn">Submit</button>
+
+        {loading && <ClipLoader color="#3498db" loading={loading} size={50} />}
+        <button type="submit" className="submit-btn" disabled={loading}>Submit</button>
       </form>
       <canvas ref={canvasRef} style={{ display: 'none' }}></canvas>
     </div>
   );
-};
+});
 
 export default UploadSection;

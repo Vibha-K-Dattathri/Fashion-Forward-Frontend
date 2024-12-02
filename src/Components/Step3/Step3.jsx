@@ -17,9 +17,6 @@ const Step3 = () => {
         <p>
           Upload an image of your outfit, and our AI will analyze its dominant colors to suggest the best complementary clothing and accessories from our store.
         </p>
-        <button className="join-now-button" onClick={handleButtonClick}>
-          Explore Now →
-        </button>
       </div>
       <div className="step-image">
         <img src={stepImage} alt="Style DNA Step One" />

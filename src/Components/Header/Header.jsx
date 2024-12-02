@@ -1,17 +1,17 @@
-// Header.js
 import React from 'react';
-import { Link } from 'react-router-dom'; // Import Link
 import './Header.css';
 
-const Header = () => {
+const Header = ({ onTryNowClick }) => {
   return (
     <div className="hero-section">
       <div className="hero-content">
         <h2>Style Your Outfit</h2>
         <p>
-            Upload an image of your outfit and let our advanced technology analyze the colors in your clothing. Discover perfect matching color combinations that elevate your style and create harmonious looks effortlessly. Experience a personalized fashion guide that complements your wardrobe.
+          Upload an image of your outfit and let our advanced technology analyze the colors in your clothing.
+          Discover perfect matching color combinations that elevate your style and create harmonious looks effortlessly.
+          Experience a personalized fashion guide that complements your wardrobe.
         </p>
-        <Link to="/style-your-outfit" className="hero-button">
+        <button onClick={onTryNowClick} className="hero-button">
           Try Now
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="12" viewBox="0 0 16 12" fill="none">
             <path
@@ -19,7 +19,7 @@ const Header = () => {
               fill="#111111"
             />
           </svg>
-        </Link>
+        </button>
       </div>
     </div>
   );
